@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "FISH.sln"
+    "dotnet.defaultSolution": "FishFest-FishGame.sln"
 }

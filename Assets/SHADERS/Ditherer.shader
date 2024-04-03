@@ -78,8 +78,8 @@ Shader "FISH/Ditherer"
                 return output;
             }
 
-            float3 getCol(float3 curcol, float3 defCol){
-                if (distance(curcol, _BackgroundCol) > distance(curcol, defCol)){
+            float3 getCol(float3 curcol, float val, float3 defCol){
+                if (val > 0.5){
                     return defCol;
                 }
                 return _BackgroundCol;
@@ -104,9 +104,9 @@ Shader "FISH/Ditherer"
                 if (mult < 0.5){
                     // col = _BackgroundCol;
                 }
-                col.rgb = falloff * col.rgb + threshold/2;
+                col.rgb = col.rgb;
 
-                col.rgb = getCol(col.rgb, startCol);
+                col.rgb = getCol(col.rgb, falloff * 0.55 + threshold/2, startCol);
                 col.a = 1.0;
 
                 // col.rgb = mult * col.rgb;
