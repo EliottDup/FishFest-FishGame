@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Movement : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float moveForce = 1, brakeForce = 1, sensitivity = 1, dashForce = 10;
 
     float orientation = 0.0f;
+    float xRot = 0.0f;
 
     bool canDash = true;
     [SerializeField] float dashReset = 1.0f;
@@ -21,27 +23,39 @@ public class Movement : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         orientation = transform.eulerAngles.y;
+        xRot = cam.eulerAngles.x;
     }
 
-    // Update is called once per frame
     void Update()
     {
 
         // Pitch
-        cam.transform.rotation *= Quaternion.AngleAxis(
-            -Input.GetAxis("Mouse Y") * sensitivity,
-            Vector3.right
-        );
-        orientation = orientation + Input.GetAxis("Mouse X") * sensitivity;
+        // cam.transform.rotation *= Quaternion.AngleAxis(
+        //     -Input.GetAxis("Mouse Y") * sensitivity,
+        //     Vector3.right
+        // );
 
-        // Paw
+        xRot += -Input.GetAxis("Mouse Y") * sensitivity;
+
+        xRot = Mathf.Clamp(xRot, -90, 90);
+
+        cam.rotation = Quaternion.Euler(
+            xRot,
+            cam.eulerAngles.y,
+            cam.eulerAngles.z
+        );
+
+
+
+        // Yaw
+        orientation = orientation + Input.GetAxis("Mouse X") * sensitivity;
         transform.rotation = Quaternion.Euler(
             transform.eulerAngles.x,
             orientation,
             transform.eulerAngles.z
         );
 
-        bool f = Input.GetKey(forward), r = Input.GetKey(right), b = Input.GetKey(left), l = Input.GetKey(left);
+        bool f = Input.GetKey(forward), r = Input.GetKey(right), b = Input.GetKey(back), l = Input.GetKey(left);
         if (f)
         {
             rb.AddForce(cam.forward * moveForce, ForceMode.Acceleration);
@@ -52,12 +66,11 @@ public class Movement : MonoBehaviour
         }
         if (b)
         {
-            rb.AddForce(-cam.forward * moveForce, ForceMode.Acceleration);
+            rb.AddForce(-cam.forward * moveForce / 2, ForceMode.Acceleration);
         }
         if (l)
         {
-            rb.AddForce(transform.forward * moveForce, ForceMode.Acceleration);
-            rb.AddForce(transform.right * -moveForce, ForceMode.Acceleration);
+            rb.AddForce(-transform.right * moveForce, ForceMode.Acceleration);
         }
         if (Input.GetKeyDown(dash) && canDash)
         {
@@ -73,6 +86,7 @@ public class Movement : MonoBehaviour
                 rb.velocity = Vector3.zero;
             }
         }
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, -50, 50), Mathf.Clamp(transform.position.y, -10, 30), Mathf.Clamp(transform.position.z, -50, 50));
     }
 
     void ResetDash()
