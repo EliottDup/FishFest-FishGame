@@ -8,7 +8,6 @@ Shader "FISH/Unlit/Texture"
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
-
         Pass
         {
             CGPROGRAM

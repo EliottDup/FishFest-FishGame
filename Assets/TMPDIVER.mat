@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat 2
+  m_Name: TMPDIVER
   m_Shader: {fileID: 4800000, guid: 2cd3a28e474c5514d927c51b83c0f800, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -91,5 +91,5 @@ Material:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 1, g: 0, b: 0, a: 1}
-    - _MainCol: {r: 0.33125544, g: 1, b: 0, a: 0}
+    - _MainCol: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_BuildTextureStacks: []
