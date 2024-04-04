@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mat 1
+  m_Name: SeaWeed
   m_Shader: {fileID: 4800000, guid: 2cd3a28e474c5514d927c51b83c0f800, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -83,5 +83,5 @@ Material:
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0.016642937, g: 0.03035901, b: 0.20754719, a: 1}
-    - _MainCol: {r: 0.015686275, g: 0.03137255, b: 0.20784314, a: 0}
+    - _MainCol: {r: 0.009660378, g: 0.128, b: 0.012075472, a: 0}
   m_BuildTextureStacks: []

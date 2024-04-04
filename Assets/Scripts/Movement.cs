@@ -8,7 +8,7 @@ public class Movement : MonoBehaviour
     Rigidbody rb;
     [SerializeField] Transform cam;
 
-    [SerializeField] KeyCode forward = KeyCode.W, right = KeyCode.A, back = KeyCode.S, left = KeyCode.D, dash = KeyCode.Space;
+    [SerializeField] KeyCode forward = KeyCode.W, right = KeyCode.A, back = KeyCode.S, left = KeyCode.D, dash = KeyCode.Space, up = KeyCode.E, down = KeyCode.Q;
     [SerializeField] float moveForce = 1, brakeForce = 1, sensitivity = 1, dashForce = 10;
 
     float orientation = 0.0f;
@@ -55,30 +55,40 @@ public class Movement : MonoBehaviour
             transform.eulerAngles.z
         );
 
-        bool f = Input.GetKey(forward), r = Input.GetKey(right), b = Input.GetKey(back), l = Input.GetKey(left);
+        bool f = Input.GetKey(forward), r = Input.GetKey(right), b = Input.GetKey(back), l = Input.GetKey(left), u = Input.GetKey(up), d = Input.GetKey(down);
+        Vector3 force = Vector3.zero;
         if (f)
         {
-            rb.AddForce(cam.forward * moveForce, ForceMode.Acceleration);
+            force += cam.forward;
         }
         if (r)
         {
-            rb.AddForce(transform.right * moveForce, ForceMode.Acceleration);
+            force += transform.right;
         }
         if (b)
         {
-            rb.AddForce(-cam.forward * moveForce / 2, ForceMode.Acceleration);
+            force -= cam.forward;
         }
         if (l)
         {
-            rb.AddForce(-transform.right * moveForce, ForceMode.Acceleration);
+            force -= transform.right;
         }
+        if (u)
+        {
+            force += transform.up;
+        }
+        if (d)
+        {
+            force -= transform.up;
+        }
+        rb.AddForce(force.normalized * moveForce, ForceMode.Acceleration);
         if (Input.GetKeyDown(dash) && canDash)
         {
             rb.AddForce(cam.forward * dashForce, ForceMode.Impulse);
             canDash = false;
             Invoke(nameof(ResetDash), dashReset);
         }
-        if (!(f || r || b || l) && rb.velocity.magnitude != 0)
+        if (!(f || r || b || l || u || d) && rb.velocity.magnitude != 0)
         {
             rb.AddForce(-rb.velocity.normalized * rb.velocity.magnitude);
             if (rb.velocity.magnitude < 0.05f)

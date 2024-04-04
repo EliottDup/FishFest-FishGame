@@ -57,7 +57,7 @@ public class Diver : MonoBehaviour
 
             target = new Vector3(x, 0, z);
             print(target);
-            if (target.magnitude < shipRadius)
+            if (target.magnitude > shipRadius)
             {
                 searchingPos = false;
             }
