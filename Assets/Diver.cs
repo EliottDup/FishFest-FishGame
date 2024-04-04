@@ -68,6 +68,10 @@ public class Diver : MonoBehaviour
 
     bool MoveTowardsTarget()
     {
+
+        Vector3 lookTarget = new Vector3(target.x, transform.position.y, target.z);
+        transform.LookAt(lookTarget, Vector3.up);
+
         Vector3 curpos = transform.position;
         curpos += (target - curpos).normalized * moveSpeed * Time.deltaTime;
         // curpos = Vector3.MoveTowards(curpos, target, moveSpeed * Time.deltaTime);
